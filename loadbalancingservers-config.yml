@@ -1,0 +1,6 @@
+- name: Deploy Nginx Load Balancer
+  hosts: loadbalancingservers
+  become: true
+  roles:
+    - nginx
+    - loadbalancing

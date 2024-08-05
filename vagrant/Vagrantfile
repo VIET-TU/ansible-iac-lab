@@ -1,0 +1,71 @@
+Vagrant.configure("2") do |config|
+    config.vm.define "web1" do |web1|
+      web1.vm.provider "virtualbox" do |vb_web1|
+        vb_web1.memory = 2024
+        vb_web1.cpus = 2
+      end
+  
+      web1.vm.box = "bento/ubuntu-20.04"
+      web1.vm.hostname = "webserver-1"
+      web1.vm.network "private_network", ip: "192.168.56.10"
+
+      web1.vm.provision "shell", inline: <<-SHELL
+        apt update
+        apt -y install openssh-server
+        ufw allow ssh
+        ufw --force enable
+
+        echo 'root:viettu' | chpasswd
+        sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+        systemctl reload sshd
+      SHELL
+  
+    end
+  
+    config.vm.define "web2" do |web2|
+      web2.vm.provider "virtualbox" do |vb_web2|
+        vb_web2.memory = 2024
+        vb_web2.cpus = 2
+      end
+  
+      web2.vm.box = "bento/ubuntu-20.04"
+      web2.vm.hostname = "webserver-2"
+      web2.vm.network "private_network", ip: "192.168.56.11"
+
+      web2.vm.provision "shell", inline: <<-SHELL
+         # Cài đặt Nginx và SSH
+        apt update
+        apt -y install openssh-server
+        ufw allow ssh
+        ufw --force enable
+
+        echo 'root:viettu' | chpasswd
+        sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+        systemctl reload sshd
+      SHELL
+  
+    end
+  
+    config.vm.define "web3" do |web3|
+        web3.vm.provider "virtualbox" do |vb_web3|
+        vb_web3.memory = 2024
+        vb_web3.cpus = 2
+      end
+  
+      web3.vm.box = "bento/ubuntu-20.04"
+      web3.vm.hostname = "webserver-3"
+      web3.vm.network "private_network", ip: "192.168.56.12"
+
+      web3.vm.provision "shell", inline: <<-SHELL
+        apt update
+        apt -y install openssh-server
+        ufw allow ssh
+        ufw --force enable
+
+        echo 'root:viettu' | chpasswd
+        sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+        systemctl reload sshd
+      SHELL
+  
+    end
+end

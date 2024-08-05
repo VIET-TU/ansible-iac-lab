@@ -1,0 +1,19 @@
+---
+# defaults file for loadbalancing
+nginx_conf_path: /etc/nginx/conf.d/loadbalancing.conf
+
+# List of backend servers
+backend_servers:
+  - name: server1
+    address: 10.32.3.131
+    port: 8081
+  - name: server2
+    address: 10.32.3.131
+    port: 8082
+  - name: server3
+    address: 10.32.3.131
+    port: 8083
+
+# load_balancing_method: round-robin
+
+load_balancer_port: 80

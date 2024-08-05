@@ -1,0 +1,8 @@
+---
+- name: Quick deploy
+  hosts: webservers
+  collections:
+    - community.docker
+  become: true
+  roles:
+    - quick-deploy
